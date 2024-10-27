@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: lab-6
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/lab6
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

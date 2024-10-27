@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            text-align: center;
+        }
+        .error-container {
+            background-color: white; /* Background for the error box */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+        }
+        .error-message {
+            color: white; /* Text color */
+            font-weight: bold;
+            padding: 15px; /* Padding inside the rectangle */
+            background-color: red; /* Background color */
+            border: 2px solid darkred; /* Darker border color */
+            border-radius: 5px; /* Slightly rounded corners */
+            margin: 15px 0; /* Space above and below the message */
+        }
+        a {
+            display: inline-block; /* Centering the link */
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333; /* Dark background for button */
+            color: white; /* Text color for button */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners for button */
+        }
+        a:hover {
+            background-color: #111; /* Darker on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="error-container">
+    <h1>An Error Occurred</h1>
+    <div class="error-message" th:if="${errorMessage}">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <a th:href="@{/api/v1/users}">Back to Main Menu</a>
+</div>
+</body>
+</html>

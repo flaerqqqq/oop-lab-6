@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pagination and Menu Button */
+        .pagination, .menu-button {
+            margin: 20px 0;
+        }
+
+        .menu-button a, .pagination a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-button a:hover, .pagination a:hover {
+            background-color: #0056b3;
+        }
+
+        .pagination span {
+            padding: 0 10px;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            color: white;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: red;
+            border: 2px solid darkred;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Users List</h1>
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <!-- Users Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">ID</td>
+            <td th:text="${user.firstName}">First Name</td>
+            <td th:text="${user.lastName}">Last Name</td>
+            <td th:text="${user.email}">Email</td>
+            <td>
+                <a th:href="@{/api/v1/users/{id}(id=${user.id})}">View</a> |
+                <a th:href="@{/api/v1/users/edit/{id}(id=${user.id})}">Edit</a> |
+                <a th:href="@{/api/v1/users/delete/{id}(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <a th:if="${currentPage > 0}" th:href="@{/api/v1/users(page=${currentPage - 1})}">Previous</a>
+        <span>Page <span th:text="${currentPage + 1}"></span> of <span th:text="${totalPages}"></span></span>
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{/api/v1/users(page=${currentPage + 1})}">Next</a>
+    </div>
+
+    <!-- Return to Menu Button -->
+    <div class="menu-button">
+        <a th:href="@{/api/v1/users/menu}">Return to Main Menu</a>
+    </div>
+</div>
+
+</body>
+</html>
